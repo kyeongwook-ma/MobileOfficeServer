@@ -1,7 +1,5 @@
 package cva.roomConfig;
 
-import cva.util.RandomGenerator;
-
 public class RoomOccupied {
 
 	double[][] temp;
@@ -32,29 +30,14 @@ public class RoomOccupied {
 	
 	
 	public void init(){
-		
-		RandomGenerator pre = new RandomGenerator(4);
-		RandomGenerator post = new RandomGenerator(4);		
-		
-		int preIdx = pre.getRandom();
-		int postIdx = post.getRandom();
-		
-		if(preIdx == 0 && postIdx == 2) {
-			tempLogical[0][2] = 4;
-			tempWish[0][2] = 26;
-			name[0][2] ="Hong Kil Dong";
-		} else if (preIdx == 2 && postIdx == 2) {
-			tempLogical[2][2] = 5;
-			tempWish[2][2] = 25;
-			brightLogical[2][2] = 3;
-			brightWish[2][2] = 60;
-			name[2][2] = "Lee Tak Jin";
-		} else if (preIdx == 3 && postIdx == 3) {
-			brightLogical[3][3] = 2;
-			brightWish[3][3] = 65;
-			name[2][2] = "Kim Bum Su";
-		}
-	
+		tempLogical[0][2] = 4;
+		tempWish[0][2] = 26;
+		name[0][2] ="Hong Kil Dong";
+		tempLogical[2][2] = 5;
+		tempWish[2][2] = 25;
+		brightLogical[2][2] = 3;
+		brightWish[2][2] = 60;
+		name[2][2] = "Lee Tak Jin";
 	}
 	
 

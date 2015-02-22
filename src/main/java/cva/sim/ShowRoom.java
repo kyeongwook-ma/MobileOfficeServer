@@ -5,6 +5,7 @@ import java.util.Random;
 import cva.gson.Response;
 import cva.roomConfig.Room;
 import cva.roomConfig.RoomOccupied;
+import cva.util.RandomGenerator;
 
 public class ShowRoom {
 	static final int Roomrow = 4;
@@ -73,14 +74,15 @@ public class ShowRoom {
 	}
 	
 	public double change(double envData){
-		Random value = new Random();	
+		Random value = new Random();
 		Random logical = new Random();
+		int rgVal = new Random().nextInt(2);
 		
 		if(logical.nextInt(1) == 0){
-			envData += value.nextDouble();
+			envData += (value.nextDouble() + rgVal);
 		}
 		else
-			envData -= value.nextDouble();
+			envData -= (value.nextDouble() + rgVal);
 		
 		return envData;
 	}
@@ -110,6 +112,12 @@ public class ShowRoom {
 		printRoom(myRoom);
 		System.out.println();
 
+		Response rs = new Response(myRoom, ro, Roomrow, Roomcol);
+
+		return rs.call();
+	}
+	public String getCurrentRoom()
+	{
 		Response rs = new Response(myRoom, ro, Roomrow, Roomcol);
 
 		return rs.call();

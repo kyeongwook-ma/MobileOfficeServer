@@ -11,7 +11,6 @@ public class RandomGenerator {
 	public RandomGenerator(int range) {
 		randomNums = new ArrayList<Integer>();
 
-
 		for(int i = 0; i < range; ++i) {
 			randomNums.add(range);
 		}
@@ -23,11 +22,11 @@ public class RandomGenerator {
 	public int getRandom() {
 
 		if(randomNums.size() != 0)
-			return randomNums.remove(0);
+			return randomNums.remove(1);
 		else
 			return 0;
 	}
-
-
+	
+	
 
 }

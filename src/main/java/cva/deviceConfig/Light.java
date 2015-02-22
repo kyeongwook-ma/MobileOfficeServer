@@ -6,12 +6,14 @@ public class Light extends Device {
 
 	public Light(int maxrow, int maxcol, int xPos, int yPos) {
 		super(maxrow, maxcol, xPos, yPos);
+		// TODO Auto-generated constructor stub
 	}
 
 	@Override
 	public int predictChanges(double[][] temperature, double[][] bright,
 			double[][] humidity, double temp, double brig, double humi,
 			int tempstate, int brightstate, int humistate) {
+		// TODO Auto-generated method stub
 		return 0;
 	}
 
@@ -58,23 +60,27 @@ public class Light extends Device {
 	@Override
 	public void dehumidify(double[][] temperature, double[][] bright,
 			double[][] humidity, int elapseTime) {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void warm(double[][] temperature, double[][] bright,
 			double[][] humidity, int elapseTime) {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public void cool(double[][] temperature, double[][] bright,
 			double[][] humidity, int elapseTime) {
+		// TODO Auto-generated method stub
 		
 	}
 
 	@Override
 	public int costW(int elapseTime) {
+		// TODO Auto-generated method stub
 		return elapseTime * costW;
 	}
 }

@@ -1,15 +1,24 @@
 package cva.gson.request;
 
+import java.io.BufferedReader;
+import java.io.FileNotFoundException;
+import java.io.FileReader;
 import java.io.IOException;
+import java.lang.reflect.Member;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.atomic.AtomicLong;
 
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.google.gson.Gson;
 
+import cva.gson.Response;
 import cva.sim.ShowRoom;
 
 @RestController
@@ -29,22 +38,25 @@ public class RequestController {
 	 * name)); return sr.start(); }
 	 */
 
+	BufferedReader in;
 	
 	@RequestMapping("/change")
-	public void change(@RequestBody String text) {
+	public String change(@RequestBody String text) {
 		if (text.equals("")){			
 			text = gson.toJson(new MapState(1));
 		}
 		
 		MapState ms = gson.fromJson(text, MapState.class);
 		
-		sr.init(ms.getState()); 
+		sr.init(ms.getState());
+		
+		return sr.getCurrentRoom();
 	}
 
 	@RequestMapping("/greeting")
 	public String greeting(@RequestBody String text) throws IOException {		
 
-		if (text == null || text.equals("")) {
+		if (text.equals("")) {
 			
 			List<Preferece> prefereces = new ArrayList<Preferece>();
 			prefereces.add(new Preferece("Temperature","EG","26","Celcius"));

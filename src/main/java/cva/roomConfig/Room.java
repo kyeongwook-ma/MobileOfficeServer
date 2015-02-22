@@ -266,6 +266,8 @@ public class Room {
 			devicesOn = roomCost.getListOn();
 			devicesWarm = roomCost.getListWarm();
 			
+			
+			
 			for(int i=0; i<row; i++){
 				for(int j=0; j<col; j++){
 					useTL[i][j] = roomCost.getUseTL(i, j);
