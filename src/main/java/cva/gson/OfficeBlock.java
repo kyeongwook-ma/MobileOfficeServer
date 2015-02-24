@@ -9,12 +9,14 @@ public class OfficeBlock {
 	private String brightness;
 	private String humidity;
 	private String has_window;
-	private String name;	
+	private String name;
+    private int start_time;
+    private int end_time;
 
 	private List<OfficeActuators> actuators;	
 
 	public OfficeBlock(String location, String temperature, String brightness,
-			String humidity, String has_window, String name, List<OfficeActuators> actuators) {
+			String humidity, String has_window, String name, int start_time, int end_time, List<OfficeActuators> actuators) {
 		
 		this.location = location;
 		this.temperature = temperature;
@@ -23,9 +25,27 @@ public class OfficeBlock {
 		this.has_window = has_window;
 		this.actuators = actuators;
 		this.name = name;
+		this.start_time = start_time;
+		this.end_time = end_time;
 	}
-	
-	public String getLocation() {
+
+    public int getStart_time() {
+        return start_time;
+    }
+    
+    public void setStart_time(int start_time) {
+        this.start_time = start_time;
+    }
+
+    public int getEnd_time() {
+        return end_time;
+    }
+
+    public void setEnd_time(int end_time) {
+        this.end_time = end_time;
+    }    
+
+    public String getLocation() {
 		return location;
 	}
 

@@ -15,7 +15,7 @@ import cva.roomConfig.RoomOccupied;
 
 public class Room {
 	protected int row, col;
-	protected double[][] tempMass;	
+	protected double[][] tempMass;
 	protected double[][] brightMass;
 	protected double[][] humiMass;
 	protected boolean[][] has_window;
@@ -26,13 +26,13 @@ public class Room {
 	protected boolean[][] BC;
 	protected boolean[][] H;
 	protected boolean[][] occupied;
-	
-	String[][] useTL;
-	String[][] useSL;
-	String[][] useA;
-	String[][] useF;
-	String[][] useBC;
-	String[][] useH;
+
+	String[][][] useTL;
+	String[][][] useSL;
+	String[][][] useA;
+	String[][][] useF;
+	String[][][] useBC;
+	String[][][] useH;
 
 	protected Aircon[][] aircon;
 	protected BlindController[][] blindcontroller;
@@ -40,35 +40,35 @@ public class Room {
 	protected Humidifier[][] humidifier;
 	protected Light[][] light;
 	protected Stand[][] stand;
-	int[][] possible;	
+	int[][] possible;
 	int tempLogical;
 	int brightLogical;
 	int humiLogical;
 	boolean Occupied;
 	int[][][] change;
-	RoomOccupied ro;	
+	RoomOccupied ro;
 	RoomCost roomCost;
 	int bestCost;
 	int state;
 	int time;
-	
+
 	private ArrayList<Device> devicesOn = new ArrayList<Device>();
 	private ArrayList<Device> devicesOff = new ArrayList<Device>();
 	private ArrayList<Device> devicesDehumi = new ArrayList<Device>();
 	private ArrayList<Device> devicesWarm = new ArrayList<Device>();
 	private ArrayList<Device> devicesCool = new ArrayList<Device>();
 
-	public Room(int row, int col) {		
+	public Room(int row, int col) {
 		this.row = row;
-		this.col = col;			
+		this.col = col;
 	}
-	
-	public void init(RoomOccupied ro, int state){
+
+	public void init(RoomOccupied ro, int state) {
 		Roominit ri = new Roominit(row, col);
 		this.state = 0;
 		ri.roomspec(state);
 		this.ro = ro;
-		
+
 		tempMass = ri.getTempMass();
 		brightMass = ri.getBrightMass();
 		humiMass = ri.getHumiMass();
@@ -86,85 +86,87 @@ public class Room {
 		humidifier = ri.getHumidifier();
 		light = ri.getLight();
 		stand = ri.getStand();
-		possible = new int[row][col];		
+		possible = new int[row][col];
 		change = new int[row][col][3];
-		
-		useTL = new String[row][col];
-		useSL = new String[row][col];
-		useA = new String[row][col];
-		useF = new String[row][col];
-		useBC = new String[row][col];
-		useH = new String[row][col];
-		
-		for(int i=0; i<row; i++){
-			for(int j=0; j<col; j++){
-				useTL[i][j] = "";
-				useSL[i][j] = "";
-				useA[i][j] = "";
-				useF[i][j] = "";
-				useBC[i][j] = "";
-				useH[i][j] = "";
+
+		useTL = new String[row][col][24];
+		useSL = new String[row][col][24];
+		useA = new String[row][col][24];
+		useF = new String[row][col][24];
+		useBC = new String[row][col][24];
+		useH = new String[row][col][24];
+
+		for (int i = 0; i < row; i++) {
+			for (int j = 0; j < col; j++) {
+				for (int k = 0; k < 24; k++) {
+					useTL[i][j][k] = "";
+					useSL[i][j][k] = "";
+					useA[i][j][k] = "";
+					useF[i][j][k] = "";
+					useBC[i][j][k] = "";
+					useH[i][j][k] = "";
+				}
 			}
 		}
 	}
-	
+
 	public int getBestCost() {
 		return bestCost;
 	}
 
 	// 환경 요소에 대한 getter
-	public boolean getHasWindow(int xPos, int yPos){
+	public boolean getHasWindow(int xPos, int yPos) {
 		return has_window[xPos][yPos];
 	}
-	
-	public String getUseSL(int i, int j) {
-		return useSL[i][j];
-	}
-	
-	public String getUseTL(int i, int j) {
-		return useTL[i][j];
-	}
-	
-	public String getUseA(int i, int j) {
-		return useA[i][j];
+
+	public String getUseSL(int i, int j, int time) {
+		return useSL[i][j][time];
 	}
 
-	public String getUseF(int i, int j) {
-		return useF[i][j];
+	public String getUseTL(int i, int j, int time) {
+		return useTL[i][j][time];
 	}
 
-	public String getUseBC(int i, int j) {
-		return useBC[i][j];
+	public String getUseA(int i, int j, int time) {
+		return useA[i][j][time];
 	}
 
-	public String getUseH(int i, int j) {
-		return useH[i][j];
+	public String getUseF(int i, int j, int time) {
+		return useF[i][j][time];
 	}
-	
-	public boolean getH(int xPos, int yPos){
+
+	public String getUseBC(int i, int j, int time) {
+		return useBC[i][j][time];
+	}
+
+	public String getUseH(int i, int j, int time) {
+		return useH[i][j][time];
+	}
+
+	public boolean getH(int xPos, int yPos) {
 		return H[xPos][yPos];
 	}
-	
-	public boolean getBC(int xPos, int yPos){
+
+	public boolean getBC(int xPos, int yPos) {
 		return BC[xPos][yPos];
 	}
-	
-	public boolean getF(int xPos, int yPos){
+
+	public boolean getF(int xPos, int yPos) {
 		return F[xPos][yPos];
 	}
-	
-	public boolean getA(int xPos, int yPos){
+
+	public boolean getA(int xPos, int yPos) {
 		return A[xPos][yPos];
 	}
-	
-	public boolean getSL(int xPos, int yPos){
+
+	public boolean getSL(int xPos, int yPos) {
 		return SL[xPos][yPos];
 	}
-	
-	public boolean getTL(int xPos, int yPos){
+
+	public boolean getTL(int xPos, int yPos) {
 		return TL[xPos][yPos];
 	}
-	
+
 	public double getTemperature(int xPos, int yPos) {
 		return tempMass[xPos][yPos];
 	}
@@ -180,7 +182,7 @@ public class Room {
 	public boolean getOccupied(int xPos, int yPos) {
 		return occupied[xPos][yPos];
 	}
-	
+
 	public void setTempMass(int xPos, int yPos, double tempMass) {
 		this.tempMass[xPos][yPos] = tempMass;
 	}
@@ -193,15 +195,15 @@ public class Room {
 		this.humiMass[xPos][yPos] = humiMass;
 	}
 
-
 	// 사무실 방의 사용여부를 확인하고 사용시 list에서 제외
 	public int[][] checkOccupied(int row, int col, boolean[][] occupied,
-			int[][] possible) {
-		//ro = new RoomOccupied(row,col);		
+			int[][] possible, int start_time, int end_time) {
+		// ro = new RoomOccupied(row,col);
 
 		for (int i = 0; i < row; i++) {
 			for (int j = 0; j < col; j++) {
-				if (occupied[i][j] == true) {
+				if (occupied[i][j] == true
+						&& checkTime(i, j, start_time, end_time)) {
 					possible[i][j] = 0;
 					ro.setTemp(tempMass);
 					ro.setBright(brightMass);
@@ -211,17 +213,28 @@ public class Room {
 			}
 		}
 		return possible;
-	}	
+	}
+
+	public boolean checkTime(int i, int j, int start_time, int end_time) {
+		if (ro.getStart_time(i, j, start_time) <= start_time) {
+			if (start_time < ro.getEnd_time(i, j, start_time)) {
+				return true;
+			}
+		}
+		return false;
+	}
 
 	// 사용자의 요청에 따른 비교
-	public int[] clientCall(String name, double temp, String tempState, double bright,
-			String brightState, double humi, String humiState, RoomOccupied ro) {
+	public int[] clientCall(String name, double temp, String tempState,
+			double bright, String brightState, double humi, String humiState,
+			RoomOccupied ro, int start_time, int end_time) {
 		int[] useRoom = new int[2];
-		RoomEnvChecker rec = new RoomEnvChecker();		
+		RoomEnvChecker rec = new RoomEnvChecker();
 		time = 0;
-		
+
 		// 사용자의 요청과 맞는 환경 값을 가지는 곳을 2로 표시
-		possible = checkOccupied(row, col, occupied, possible);
+		possible = checkOccupied(row, col, occupied, possible, start_time,
+				end_time);
 		possible = rec.clientTmepCall(row, col, temp, tempState, tempMass,
 				possible);
 		possible = rec.clientBrightCall(row, col, bright, brightState,
@@ -254,34 +267,38 @@ public class Room {
 				}
 			}
 
-			roomCost = new RoomCost(temp, bright, humi, change,
-					tempMass, brightMass, humiMass, TL, SL, A, F, BC, H, row,
-					col, possible, tempState, brightState, humiState, ro);
-			
-			roomCost.calculate();
+			roomCost = new RoomCost(temp, bright, humi, change, tempMass,
+					brightMass, humiMass, TL, SL, A, F, BC, H, row, col,
+					possible, tempState, brightState, humiState, ro);
+
+			roomCost.calculate(start_time, end_time);
 
 			devicesCool = roomCost.getListCool();
 			devicesDehumi = roomCost.getListDehumi();
 			devicesOff = roomCost.getListOff();
 			devicesOn = roomCost.getListOn();
 			devicesWarm = roomCost.getListWarm();
-			
-			
-			
-			for(int i=0; i<row; i++){
-				for(int j=0; j<col; j++){
-					useTL[i][j] = roomCost.getUseTL(i, j);
-					useSL[i][j] = roomCost.getUseSL(i, j);
-					useA[i][j] = roomCost.getUseA(i, j);
-					useF[i][j] = roomCost.getUseF(i, j);
-					useBC[i][j] = roomCost.getUseBC(i, j);
-					useH[i][j] = roomCost.getUseH(i, j);
+
+			for (int i = 0; i < row; i++) {
+				for (int j = 0; j < col; j++) {
+					for (int k = 0; k < 24; k++) {
+						useTL[i][j][k] = roomCost.getUseTL(i, j, k);
+						useSL[i][j][k] = roomCost.getUseSL(i, j, k);
+						useA[i][j][k] = roomCost.getUseA(i, j, k);
+						useF[i][j][k] = roomCost.getUseF(i, j, k);
+						useBC[i][j][k] = roomCost.getUseBC(i, j, k);
+						useH[i][j][k] = roomCost.getUseH(i, j, k);
+					}
 				}
-			}				
-			
+			}
+
 			useRoom = roomCost.bestRoom();
 			occupied[useRoom[0]][useRoom[1]] = true;
-			ro.setName(useRoom[0],useRoom[1],name);
+			for (int i = start_time; i <= end_time; i++) {
+				ro.setName(useRoom[0], useRoom[1], i, name);
+				ro.setStart_time(useRoom[0], useRoom[1], i, start_time);
+				ro.setEnd_time(useRoom[0], useRoom[1], i, end_time);
+			}
 			bestCost = roomCost.getCostRow();
 			time = roomCost.getCountLow();
 		}
@@ -323,8 +340,8 @@ public class Room {
 		}
 		return null;
 	}
-	
-	public int timeCount(){		
+
+	public int timeCount() {
 		return time;
 	}
 }

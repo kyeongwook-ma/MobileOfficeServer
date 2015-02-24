@@ -30,7 +30,7 @@ public class Humidifier extends Device {
 				//humidity[i][j] += ((humiP - distance(xPosition, yPosition, i, j) * rate) * elapseTime);
 				
 				distance = distance(xPosition, yPosition, i, j) * 0.1;
-				humirate = (0.4 - distance);				
+				humirate = (0.7 - distance);				
 				
 				if(humirate > 0){
 					humidity[i][j] += humirate * elapseTime;
@@ -43,7 +43,21 @@ public class Humidifier extends Device {
 	public void off(double[][] temperature, double[][] bright,
 			double[][] humidity, int elapseTime) {
 		// TODO Auto-generated method stub
-		
+		double distance = 0;
+		double humirate = 0;
+		this.costW = 6;
+		for(int i=0; i<this.maxrow; i++) {
+			for(int j=0; j<this.maxcol; j++) {
+				//humidity[i][j] += ((humiP - distance(xPosition, yPosition, i, j) * rate) * elapseTime);
+				
+				distance = distance(xPosition, yPosition, i, j) * 0.1;
+				humirate = (0.7 - distance);				
+				
+				if(humirate > 0){
+					humidity[i][j] -= humirate * elapseTime;
+				}			
+			}
+		}
 	}
 
 	@Override

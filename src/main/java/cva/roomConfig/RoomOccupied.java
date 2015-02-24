@@ -11,7 +11,9 @@ public class RoomOccupied {
 	double[][] tempWish;
 	double[][] brightWish;
 	double[][] humiWish;
-	String[][] name;
+	String[][][] name;	
+	int[][][] start_time;
+	int[][][] end_time;
 
 	public RoomOccupied(int row, int col){
 		temp = new double[row][col];
@@ -23,7 +25,9 @@ public class RoomOccupied {
 		tempWish = new double[row][col];
 		brightWish = new double[row][col];
 		humiWish = new double[row][col];
-		name = new String[row][col];
+		name = new String[row][col][24];
+		start_time = new int[row][col][24];
+		end_time = new int[row][col][24];
 		
 		init();
 	}
@@ -32,22 +36,57 @@ public class RoomOccupied {
 	public void init(){
 		tempLogical[0][2] = 4;
 		tempWish[0][2] = 26;
-		name[0][2] ="Hong Kil Dong";
+		start_time[0][2][15] = 15;
+		end_time[0][2][15] = 17;
+		name[0][2][15] ="Hong Kil Dong";
+		start_time[0][2][16] = 15;
+		end_time[0][2][16] = 17;
+		name[0][2][16] ="Hong Kil Dong";
+		start_time[0][2][17] = 15;
+		end_time[0][2][17] = 17;		
+		name[0][2][17] ="Hong Kil Dong";
 		tempLogical[2][2] = 5;
 		tempWish[2][2] = 25;
 		brightLogical[2][2] = 3;
 		brightWish[2][2] = 60;
-		name[2][2] = "Lee Tak Jin";
+		start_time[2][2][13] = 13;
+		end_time[2][2][13] = 15;
+		name[2][2][13] = "Lee Tak Jin";
+		start_time[2][2][14] = 13;
+		end_time[2][2][14] = 15;
+		name[2][2][14] = "Lee Tak Jin";
+		start_time[2][2][15] = 13;
+		end_time[2][2][15] = 15;
+		name[2][2][15] = "Lee Tak Jin";
 	}
 	
-
-	public String getName(int i, int j) {
-		return name[i][j];
+	public int getStart_time(int i, int j, int time) {
+		return start_time[i][j][time];
 	}
 
 
-	public void setName(int i, int j, String name) {
-		this.name[i][j] = name;
+	public void setStart_time(int i, int j, int time, int start_time) {
+		this.start_time[i][j][time] = start_time;
+	}
+
+
+	public int getEnd_time(int i, int j, int time) {
+		return end_time[i][j][time];
+	}
+
+
+	public void setEnd_time(int i, int j, int time, int end_time) {
+		this.end_time[i][j][time] = end_time;
+	}
+
+
+	public String getName(int i, int j, int time) {
+		return name[i][j][time];
+	}
+
+
+	public void setName(int i, int j, int time, String name) {
+		this.name[i][j][time] = name;
 	}
 	
 	public double getTempWish(int i, int j) {

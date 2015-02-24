@@ -28,7 +28,7 @@ public class Light extends Device {
 				
 				double distance = distance(xPosition, yPosition, i, j) * 0.1;
 				double temprate = (0.15 - distance);	
-				double brightrate = (0.3 - distance);
+				double brightrate = (0.5 - distance);
 				
 				if(temprate > 0){
 					temperature[i][j] += temprate * elapseTime;
@@ -48,7 +48,7 @@ public class Light extends Device {
 				//humidity[i][j] += ((humiP - distance(xPosition, yPosition, i, j) * rate) * elapseTime);
 				
 				double distance = distance(xPosition, yPosition, i, j) * 0.1;
-				double brightrate = (0.3 - distance);				
+				double brightrate = (0.5 - distance);				
 				
 				if(brightrate > 0){
 					bright[i][j] -= brightrate * elapseTime;
